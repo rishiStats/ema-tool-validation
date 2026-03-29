@@ -22,10 +22,12 @@ data_1 = data_1 %>%
   t() %>%
   as.data.frame() %>%
   mutate(relevant = rowSums(.[, 1:13]), i_cvi = relevant/13, 
-         ua = if_else(relevant == 13, 1, 0), i_cvr =(relevant- (13/2))/(13/2) )
+         ua = if_else(relevant == 13, 1, 0), i_cvr =(relevant- (13/2))/(13/2), 
+         kappa = i_cvi - ((1 - i_cvi) * ((13/2 + 1)/(13 + 1))))
 
 data_1 %>%
-  summarize(s_cvi_ave = mean(i_cvi),s_cvi_ua = mean(ua),  s_cvr = mean(i_cvr))
+  summarize(s_cvi_ave = mean(i_cvi),s_cvi_ua = mean(ua),  
+            s_cvr = mean(i_cvr), s_kappa = mean(kappa))
 
 
 #round 2 
@@ -34,11 +36,14 @@ data_2 = read_csv("ema-tool-validation/data/content_validity_data - Round2.csv")
 data_2 = data_2 %>%
   select(-c(Domain, Academic, Clinical, Research, Experience))
 
-data_2 = data_2 %>%
-  t() %>%
-  as.data.frame() %>%
-  mutate(relevant = rowSums(.[, 1:13]), i_cvi = relevant/13, 
-         ua = if_else(relevant == 13, 1, 0), i_cvr =(relevant- (13/2))/(13/2) )
-
-data_2 %>%
-  summarize(s_cvi_ave = mean(i_cvi),s_cvi_ua = mean(ua),  s_cvr = mean(i_cvr))
+data_2 = data_2 %>% 
+  t() %>% 
+  as.data.frame() %>% 
+  mutate(relevant = rowSums(.[, 1:13]), 
+         i_cvi = relevant/13, 
+         ua = if_else(relevant == 13, 1, 0), 
+         i_cvr =(relevant- (13/2))/(13/2),
+         kappa = i_cvi - ((1 - i_cvi) * ((13/2 + 1)/(13 + 1)))) 
+data_2 %>% 
+summarize(s_cvi_ave = mean(i_cvi), s_cvi_ua = mean(ua), 
+            s_cvr = mean(i_cvr), s_kappa = mean(kappa))

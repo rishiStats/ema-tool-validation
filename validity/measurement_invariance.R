@@ -29,14 +29,6 @@ scalar_day <- cfa(config_model, data = data, group = "day",
                   group.equal = c("loadings", "intercepts"), std.lv = TRUE)
 anova(config_day, metric_day, scalar_day, test = "Chisq")
 
-#invariance across forms 
-config_form <- cfa(config_model, data = data, group = "form", std.lv = TRUE)
-metric_form <- cfa(config_model, data = data, group = "form",
-                   group.equal = "loadings", std.lv = TRUE)
-scalar_form <- cfa(config_model, data = data, group = "form",
-                   group.equal = c("loadings", "intercepts"), std.lv = TRUE)
-anova(config_form, metric_form, scalar_form, test = "Chisq")
-
 #invariance across location
 config_location <- cfa(config_model, data = data, group = "location", std.lv = TRUE)
 metric_location <- cfa(config_model, data = data, group = "location",
