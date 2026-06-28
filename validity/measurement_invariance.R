@@ -18,7 +18,7 @@ data$Q7r = 6 - data$Q7
 
 # measurement model
 config_model <- '
-  MH =~ Q3r + Q4r + Q5r + Q6r + Q7r + Q8 + Q9 + Q10 + Q11
+  MH =~ Q3r + Q4r + Q5r + Q7r + Q8 + Q9 + Q10 + Q11
 '
 
 #invariance accross days
